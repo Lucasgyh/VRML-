@@ -1,0 +1,321 @@
+#VRML V2.0 utf8
+Background {
+    groundColor [
+        0.2 0.5 0.2,
+        0.3 0.5 0.3,
+        0.4 0.5 0.4
+    ]
+    groundAngle [1.05,1.6]
+    skyColor 
+    [
+        0.2 0.2 1,
+        1.0 1.0 1.0
+    ]
+    skyAngle 1.571
+}
+DEF view1 Viewpoint
+{
+    position -5 0 -38.7
+    orientation 0 1 0 -1.571
+    description "View1"
+    jump FALSE
+}
+DEF view2 Viewpoint
+{
+    position 0 0 -5
+    orientation 0 1 0 -0.2
+    description "View2"
+    jump FALSE
+}
+Transform  #视角2
+{
+    translation 15 5.0 -32
+    children[
+        Shape{
+            appearance Appearance
+            {
+                
+                texture ImageTexture {
+                    url "view.jpg"
+                }
+            }
+            geometry Box
+            {
+                size 1.0 1.0 1.0
+            }
+        }
+        DEF touchview1 TouchSensor {}
+    ]
+}
+Transform  #视角1
+{
+    translation 15 5.0 -20
+    children[
+                Shape{
+            appearance Appearance
+            {
+                texture ImageTexture {
+                    url "view.jpg"
+                }
+            }
+            geometry Box
+            {
+                size 1.0 1.0 1.0
+            }
+        }
+        DEF touchview2 TouchSensor {}
+    ]
+}
+Transform {
+    translation 11 0 -60
+    children [
+        Shape {
+            appearance Appearance
+            {
+                material DEF blue Material{
+                    specularColor 0.8 0.8 0.9 #镜面反射的颜色
+                    diffuseColor 0.98 0.98 0.98
+                    shininess 0.1 #物体表面亮度
+                    ambientIntensity 0.2
+                    transparency 0.0 #透明度
+                }
+                texture ImageTexture {
+                    url "zhanlan.jpg"
+                }
+            }
+            geometry Box
+            {
+                size 38.5 16.5 0.5
+            }
+        }
+    ]
+}
+Transform  #右墙面
+{
+    translation 30 0 -45
+    rotation 0 1 0 1.571
+    children
+    [
+        DEF wall Shape
+        {
+            appearance Appearance
+            {
+                material USE blue
+                texture ImageTexture {
+                    url "paizhao.jpg"
+                }
+            }
+            geometry Box{
+                size 30 16.5 0.5
+            }
+        }
+    ]
+}
+Transform  #地板
+{
+    translation 11.22 -8.5 -49.7
+    children
+    [
+        Shape
+        {
+            appearance Appearance
+            {
+                material USE blue
+                texture ImageTexture {
+                    url "diban.jpg"
+                }
+            }
+            geometry Box{
+                size 39.5 0.5 39
+            }
+        }
+    ]
+
+}
+Transform  #左墙面
+{
+    translation -8 0 -45
+    rotation 0 1 0 1.571
+    children
+    [
+        Shape
+        {
+            appearance Appearance
+            {
+                material USE blue
+                texture ImageTexture {
+                    url "home.jpg"
+                }
+            }
+            geometry Box{
+                size 30 16.5 0.5
+            }
+        }
+    ]
+
+}
+
+Transform  #前墙面左边
+{
+    translation -0.8 0 -30
+    children
+    [
+        DEF walfront Shape
+        {
+            appearance Appearance
+            {
+                material USE blue
+            }
+            geometry Box
+            {
+                size 15 16.5 0.5
+            }
+        }
+    ]
+}
+Transform  #前墙面右边
+{
+    translation 22.8 0 -30
+    children USE walfront
+}
+Transform  #门
+{
+    translation 11 5.5 -30
+    rotation 0 1 0 1.571 #90度
+    children
+    [
+        Shape
+        {
+            appearance Appearance
+            {
+                material USE blue
+                texture ImageTexture {
+                    url "name.jpg"
+                }
+            }
+            geometry Box
+            {
+                size 0.5 5.5 9
+            }
+        }
+    ]
+}
+
+Group {
+    children[
+        DEF ldoor Transform
+        {
+            translation 8.8 -2.8 -30
+            rotation 0 1 0 1.571
+            children
+            [
+                DEF door1 Shape
+                {
+                    appearance Appearance
+                    {
+                        texture ImageTexture
+                        {
+                            url "door1.jpg"
+                        }
+                    }
+                    geometry Box{
+                        size 0.5 11 4.3
+                    }
+                }
+            ]
+        }
+        DEF rdoor Transform
+        {
+            translation 13.15 -2.8 -30
+            rotation 0 1 0 1.571
+            children
+            [
+                DEF door2 Shape
+                {
+                    appearance Appearance
+                    {
+                        texture ImageTexture
+                        {
+                            url "door2.jpg"
+                        }
+                    }
+                    geometry Box{
+                        size 0.5 11 4.3
+                    }
+                }
+            ]
+        }
+        DEF Touch_opendoor TouchSensor
+        {
+            enabled TRUE
+        }
+    ]
+}
+DEF Time_back TimeSensor  #时间传感器
+{
+    cycleInterval 8.0
+    loop FALSE
+}
+DEF flyinter1 PositionInterpolator  #移动位置节点
+{
+    key   #相对时间的逻辑值
+    [
+        0.0,0.2,0.3,0.4,0.5,
+        0.6,0.7,0.8,1.0
+    ]
+    keyValue   #空间坐标的位置值与相对时间的逻辑值
+    [
+        13.15 -2.8 -29.8
+        14.15 -2.8 -29.8
+        15.15 -2.8 -29.8
+        16.15 -2.8 -29.8
+        17.15 -2.8 -29.8
+        16.15 -2.8 -29.8
+        15.15 -2.8 -29.8
+        14.15 -2.8 -29.8
+        13.15 -2.8 -29.8
+    ]
+}
+DEF flyinter2 PositionInterpolator{
+    key[
+        0.0,0.1,0.2,0.4,0.5,0.6,0.7,0.8,1.0
+    ]
+    keyValue[
+        8.8 -2.8 -29.8
+        7.8 -2.8 -29.8
+        6.8 -2.8 -29.8
+        5.8 -2.8 -29.8
+        4.8 -2.8 -29.8
+        5.8 -2.8 -29.8
+        6.8 -2.8 -29.8
+        7.8 -2.8 -29.8
+        8.8 -2.8 -29.8
+    ]
+}
+Transform   #引入人体和换衣服
+{
+    translation 15 -8.0 -35.5
+    rotation 0 1 0 -1.571
+    scale 0.05 0.05 0.05
+    children[
+        Inline{
+            url "man.wrl"
+        }
+    ]
+}
+Transform  #引入彩色球
+{
+    translation 15 4.0 -42.3
+    children[
+        Inline{
+            url "colorlight.wrl"
+        }
+    ]
+}
+ROUTE Touch_opendoor.touchTime TO Time_back.startTime
+ROUTE Time_back.fraction_changed TO flyinter1.set_fraction
+ROUTE Time_back.fraction_changed TO flyinter2.set_fraction
+ROUTE flyinter2.value_changed TO ldoor.set_translation
+ROUTE flyinter1.value_changed TO rdoor.set_translation
+ROUTE touchview1.isActive TO view2.set_bind
+ROUTE touchview2.isActive TO view1.set_bind

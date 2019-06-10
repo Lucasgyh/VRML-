@@ -1,0 +1,64 @@
+#VRML V2.0 utf8
+Transform {
+    children[
+        Shape {
+            geometry Sphere {
+                radius 0.5
+            }
+            appearance Appearance {
+                material DEF yzs Material{
+                    diffuseColor 1 0 0
+                }
+            }
+        }
+        DEF S Sound{
+            source AudioClip
+            {
+                url "summer.wav"
+                description "sound"
+                loop TRUE
+                pitch 1.0
+            }
+            intensity 0
+            maxBack 500
+            maxFront 500
+            minBack 200
+            maxFront 200
+        }
+        DEF touchlight TouchSensor {}
+    ]
+}
+DEF clock TimeSensor
+{
+    cycleInterval 4
+    loop TRUE
+}
+DEF color ColorInterpolator
+{
+    key[
+        0.0 0.33 0.67 1.0
+    ]
+    keyValue[
+        1.0 0.0 0.0
+        0.0 1.0 0.0
+        1.0 1.0 0.0
+        1.0 0.0 0.0
+    ]
+}
+DEF yinliang Script {
+    eventIn SFBool isActive
+    eventOut SFFloat yin
+    url"javascript:
+    function isActive(value) {
+        if (value)
+        {
+          yin=1.0;
+        }
+    }"
+}
+ROUTE clock.fraction_changed TO color.set_fraction
+ROUTE color.value_changed TO yzs.diffuseColor
+
+ROUTE touchlight.isActive TO yinliang.isActive
+ROUTE yinliang.yin TO S.intensity
+
